@@ -97,11 +97,16 @@ router.post('/uparticles', async (req, res) => {
 
 });
 
-function loadCollection(c) {
-    MongoClient.connect(url, function(err,db) {
-        if (err) throw err;
-        return db.collection(c);
-    });
-}
+async function loadCollection(c) {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url, function(err,db) {
+          if (err) {
+            reject(err);
+          }
+  
+          resolve(db.collection(c));
+      });
+    })
+  }
 
 module.exports = router;
