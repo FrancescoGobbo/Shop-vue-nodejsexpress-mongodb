@@ -256,8 +256,7 @@ export default {
         this.Orders[i].status = 'confrirmed';
         if(this.checkAvaiabilityArticles(this.Orders[i].articles)){
           this.changeAvaiabilityArticles(this.Orders[i].articles);
-          await Shop.updateArticles(this.Articles);
-          await Shop.updateOrder(this.Orders[i]);
+          await Promise.all([Shop.updateArticles(this.Articles), Shop.updateOrder(this.Orders[i])]);
           this.reloadPage();
         }
         else{
