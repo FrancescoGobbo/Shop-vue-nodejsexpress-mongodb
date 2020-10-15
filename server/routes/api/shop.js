@@ -65,13 +65,11 @@ router.get('/orders', (req, res) => {
 //Update order
 router.post('/uporders', async(req, res) => {
     const collection = await loadCollection('orders');
-    console.log(req.body.items);
     var it = req.body.items;
-    var id = it._id;
-    console.log(id);
+    console.log(it);
     //updateOne don't work
     await collection.updateOne(
-        {"_id": objectId(id)}, 
+        {   "_id": ObjectId(it._id) }, 
         {
             $set: {"articles": it.articles},
             $set: {"status": it.status}
@@ -85,15 +83,13 @@ router.post('/uparticles', async (req, res) => {
     const collection = await loadCollection('articles');
     for(var i=0; i<req.body.items.length; i++){
         var art = req.body.items[i];
-        //updateOne don't work
         await collection.updateOne(
-            { "_id": art._id},
+            { "_id": ObjectId(art._id)},
             {
                 $set: {"available_quantity": art.available_quantity}
-            }
+            },
         );
     }
-    
 
 });
 
