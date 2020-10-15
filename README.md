@@ -1,8 +1,10 @@
 # Server mongoDB (mongodb://localhost:27017/)
+```
 Database name:atroossb
 Collection user name: users
 Collection articles name: articles
 Collection orders name: orders
+```
 
 ## Project setup
 ```
@@ -24,7 +26,9 @@ npm run dev
 ### See the server to see collection
 ```
 http://localhost:5000/
+```
 
 ### Continue to the READMEclient
 ```
 Read READMEclient on folder client
+```
