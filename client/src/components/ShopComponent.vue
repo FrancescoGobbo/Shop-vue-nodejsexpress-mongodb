@@ -215,7 +215,6 @@ export default {
               this.myPopup("You can't order a negative number of articles");
             }
             else{
-              console.log(articoliOrdine[j].qty);
               this.Orders.articles=articoliOrdine;
               //UpdateOrders?
             }
@@ -256,8 +255,7 @@ export default {
         this.Orders[i].status = 'confrirmed';
         if(this.checkAvaiabilityArticles(this.Orders[i].articles)){
           this.changeAvaiabilityArticles(this.Orders[i].articles);
-          await Shop.updateArticles(this.Articles);
-          await Shop.updateOrder(this.Orders[i]);
+          await Promise.all([Shop.updateArticles(this.Articles), Shop.updateOrder(this.Orders[i])]);
           this.reloadPage();
         }
         else{

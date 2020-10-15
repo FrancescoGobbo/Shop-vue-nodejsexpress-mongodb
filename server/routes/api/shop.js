@@ -2,7 +2,7 @@ const express = require ('express');
 const mongodb = require ('mongodb').MongoClient;
 const objectId = require ('mongodb').ObjectID;
 const assert = require ('assert');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 const router = express.Router();
 
@@ -65,13 +65,11 @@ router.get('/orders', (req, res) => {
 //Update order
 router.post('/uporders', async(req, res) => {
     const collection = await loadCollection('orders');
-    console.log(req.body.items);
     var it = req.body.items;
-    var id = it._id;
-    console.log(id);
+    console.log(it);
     //updateOne don't work
     await collection.updateOne(
-        {"_id": objectId(id)}, 
+        {   "_id": ObjectId(it._id) }, 
         {
             $set: {"articles": it.articles},
             $set: {"status": it.status}
@@ -85,23 +83,26 @@ router.post('/uparticles', async (req, res) => {
     const collection = await loadCollection('articles');
     for(var i=0; i<req.body.items.length; i++){
         var art = req.body.items[i];
-        //updateOne don't work
         await collection.updateOne(
-            { "_id": art._id},
+            { "_id": ObjectId(art._id)},
             {
                 $set: {"available_quantity": art.available_quantity}
-            }
+            },
         );
     }
-    
 
 });
 
-function loadCollection(c) {
-    MongoClient.connect(url, function(err,db) {
-        if (err) throw err;
-        return db.collection(c);
-    });
-}
+async function loadCollection(c) {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url, function(err,db) {
+          if (err) {
+            reject(err);
+          }
+  
+          resolve(db.collection(c));
+      });
+    })
+  }
 
 module.exports = router;
