@@ -1,32 +1,30 @@
-# client
-
-### Access to the project
-```
-Access to the folder "client"
-```
+# Server mongoDB (mongodb://localhost:27017/)
+Database name:atroossb
+Collection user name: users
+Collection articles name: articles
+Collection orders name: orders
 
 ## Project setup
 ```
 npm install
 ```
 
+### Run mongoDB local
+```
+Access to the folder /bin on MongoDB folder with command prompt and run command:
+
+mongodb
+```
+
 ### Compiles and hot-reloads for development
 ```
-npm run serve
-```
-### See the client-server
-```
-http://localhost:8080/
-
-### Compiles and minifies for production
-```
-npm run build
+npm run dev
 ```
 
-### Lints and fixes files
+### See the server to see collection
 ```
-npm run lint
-```
+http://localhost:5000/
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Continue to the READMEclient
+```
+Read READMEclient on folder client
